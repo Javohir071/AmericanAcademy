@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMERICAN Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9a84c;--gold-light:#e8d08a;--sp:120px 80px;--tr:.4s ease;}
+[data-theme=dark]{--bg:#0a0f1e;--bg2:#1e2535;--text:#f5f0e8;--muted:#8a8fa8;--dim:rgba(245,240,232,.65);--faint:rgba(245,240,232,.7);--brd:rgba(201,168,76,.15);--bsoft:rgba(201,168,76,.1);--card:#0a0f1e;--inp:rgba(10,15,30,.6);--hero:linear-gradient(135deg,rgba(10,15,30,.85),rgba(10,15,30,.55),rgba(10,15,30,.9));--navbg:rgba(10,15,30,.95);--mnbg:rgba(10,15,30,.98);--foot:#060a14;--qc:rgba(201,168,76,.04);}
+[data-theme=light]{--bg:#f8f5ef;--bg2:#eee9df;--text:#1a1a2e;--muted:#6b6f82;--dim:rgba(26,26,46,.65);--faint:rgba(26,26,46,.7);--brd:rgba(201,168,76,.3);--bsoft:rgba(201,168,76,.2);--card:#fff;--inp:rgba(255,255,255,.9);--hero:linear-gradient(135deg,rgba(248,245,239,.8),rgba(248,245,239,.45),rgba(248,245,239,.85));--navbg:rgba(248,245,239,.96);--mnbg:rgba(248,245,239,.99);--foot:#e4ddd0;--qc:rgba(201,168,76,.07);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;transition:background var(--tr),color var(--tr);}
+.cursor{width:12px;height:12px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;}
+.cursor-ring{width:40px;height:40px;border:1px solid rgba(201,168,76,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:transform .4s ease,width .3s,height .3s;}
+[data-theme=dark] .cursor{mix-blend-mode:screen;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:22px 60px;transition:all .5s;}
+nav.sc{background:var(--navbg);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);padding:14px 60px;}
+.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;letter-spacing:3px;color:var(--text);text-decoration:none;}
+.logo span{color:var(--gold);}
+nav ul{display:flex;gap:28px;list-style:none;align-items:center;}
+nav a{text-decoration:none;color:var(--faint);font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;position:relative;transition:color .3s;}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+nav a:hover{color:var(--gold);}nav a:hover::after{width:100%;}
+.nc{display:flex;align-items:center;gap:10px;}
+.ls{display:flex;gap:3px;}
+.lb{background:none;border:1px solid var(--brd);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;padding:5px 9px;cursor:pointer;transition:all .3s;text-transform:uppercase;}
+.lb:hover,.lb.active{background:var(--gold);border-color:var(--gold);color:#0a0f1e;}
+.tt{background:none;border:1px solid var(--brd);width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:15px;color:var(--muted);}
+.tt:hover{border-color:var(--gold);color:var(--gold);}
+.hb{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:1100;background:none;border:none;}
+.hb span{display:block;width:26px;height:2px;background:var(--text);transition:all .3s;}
+.hb.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hb.active span:nth-child(2){opacity:0;}
+.hb.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mn{display:none;position:fixed;inset:0;background:var(--mnbg);z-index:1050;flex-direction:column;align-items:center;justify-content:center;gap:26px;}
+.mn.open{display:flex;}
+.mn a{text-decoration:none;color:var(--text);font-family:'Playfair Display',serif;font-size:26px;font-weight:700;letter-spacing:2px;transition:color .3s;}
+.mn a:hover{color:var(--gold);}
+.mnc{display:flex;gap:8px;margin-top:12px;align-items:center;}
+.mnc .lb{font-size:11px;padding:7px 13px;}
+.mnc .tt{width:40px;height:40px;font-size:16px;}
+.gd{width:80px;height:1px;background:var(--gold);margin:0 auto 20px;}
+.sl{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:12px;}
+#home{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hbg{position:absolute;inset:0;background:url('img/Gallery2.jpg') center/cover no-repeat;transform:scale(1.1);animation:hz 20s ease-in-out infinite alternate;}
+@keyframes hz{0%{transform:scale(1.1);}100%{transform:scale(1.2);}}
+.hov{position:absolute;inset:0;background:var(--hero);transition:background var(--tr);}
+.hc{position:relative;text-align:center;z-index:2;max-width:900px;padding:0 40px;}
+.he{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fu 1s .3s forwards;}
+.ht{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,110px);font-weight:900;line-height:.95;color:var(--text);opacity:0;animation:fu 1s .5s forwards;transition:color var(--tr);}
+.ht em{font-style:italic;color:var(--gold);}
+.hs{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--faint);margin:28px 0 48px;line-height:1.6;opacity:0;animation:fu 1s .7s forwards;}
+.hbs{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fu 1s .9s forwards;}
+.bp{background:var(--gold);color:#0a0f1e;padding:16px 44px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);}
+.bp:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 20px 40px rgba(201,168,76,.3);}
+.bo{background:transparent;color:var(--text);padding:16px 44px;border:1px solid var(--brd);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;}
+.bo:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);}
+.hscr{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fi 1s 1.5s forwards;}
+.hscr span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.sln{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sl2 2s ease-in-out infinite;}
+@keyframes sl2{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+.pts{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+.pt{position:absolute;background:var(--gold);border-radius:50%;animation:pf linear infinite;opacity:0;}
+@keyframes pf{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.3}100%{opacity:0;transform:translateY(-100px) scale(1.5)}}
+.sb{background:var(--bg2);border-top:1px solid var(--bsoft);border-bottom:1px solid var(--bsoft);padding:60px 80px;display:flex;justify-content:center;gap:80px;flex-wrap:wrap;transition:background var(--tr);}
+.si{text-align:center;opacity:0;transform:translateY(20px);transition:all .8s;}
+.si.show{opacity:1;transform:translateY(0);}
+.sn{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--gold);line-height:1;}
+.slb{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+#about{padding:var(--sp);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;position:relative;}
+#about::before{content:'"';position:absolute;top:40px;left:60px;font-family:'Playfair Display',serif;font-size:400px;color:var(--qc);line-height:1;pointer-events:none;}
+.aiw{position:relative;opacity:0;transform:translateX(-40px);transition:all 1s;}
+.aiw.show{opacity:1;transform:translateX(0);}
+.aiw img{width:100%;height:550px;object-fit:cover;display:block;}
+.aif{position:absolute;top:-20px;left:-20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,.3);z-index:-1;}
+.ab{position:absolute;bottom:-24px;right:-24px;background:var(--gold);color:#0a0f1e;width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:12px;text-align:center;letter-spacing:1px;}
+.ab strong{font-size:28px;font-family:'Playfair Display',serif;}
+.at{opacity:0;transform:translateX(40px);transition:all 1s .2s;}
+.at.show{opacity:1;transform:translateX(0);}
+.at h2{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;line-height:1.1;margin-bottom:28px;color:var(--text);transition:color var(--tr);}
+.at h2 em{color:var(--gold);font-style:italic;}
+.at p{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.9;color:var(--dim);margin-bottom:20px;}
+.fl{list-style:none;margin-top:32px;display:grid;gap:14px;}
+.fl li{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--faint);}
+.fl li::before{content:'';width:24px;height:1px;background:var(--gold);flex-shrink:0;}
+#courses{padding:var(--sp);background:var(--bg2);position:relative;overflow:hidden;transition:background var(--tr);}
+#courses::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.sh{text-align:center;margin-bottom:80px;}
+.st{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--text);margin-top:16px;transition:color var(--tr);}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.cc{background:var(--card);padding:44px 36px 36px;position:relative;overflow:hidden;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s,background var(--tr),box-shadow .3s;border-top:1px solid var(--bsoft);display:flex;flex-direction:column;gap:15px;}
+.cc.show{opacity:1;transform:translateY(0);}
+.cc::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.cc:hover::after{transform:scaleX(1);}
+.cc:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,.15);}
+.cn{position:absolute;top:24px;right:28px;font-family:'Playfair Display',serif;font-size:72px;font-weight:900;color:rgba(201,168,76,.06);line-height:1;pointer-events:none;}
+.clv{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.ci{font-size:32px;display:block;line-height:1;}
+.cc h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);line-height:1.2;transition:color var(--tr);}
+.cc p{font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.75;color:var(--muted);}
+.cf{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1;}
+.cf li{font-size:12.5px;color:var(--dim);display:flex;align-items:center;gap:10px;}
+.cf li::before{content:'';width:16px;height:1px;background:rgba(201,168,76,.5);flex-shrink:0;}
+.cft{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--bsoft);margin-top:auto;}
+.cd{font-size:11px;color:var(--muted);}
+.cnx{font-size:11px;color:var(--gold);font-weight:600;}
+.cc--h{border-left:2px solid rgba(201,168,76,.3);}
+.cc--g{border:1px solid rgba(201,168,76,.2);}
+.cc--g::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1;}
+.cc--g h3{color:var(--gold-light);}
+#teachers{padding:var(--sp); text-align: center;}
+.mt{display:grid;grid-template-columns:1fr 1fr; margin-left: 430px;  margin-bottom:60px;border:1px solid var(--brd);overflow:hidden;opacity:0;transform:translateY(30px);transition:all .9s;max-width:900px;}
+.mt.show{opacity:1;transform:translateY(0);}
+.mti{position:relative;overflow:hidden;height:500px;}
+.mti img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s;}
+.mt:hover .mti img{transform:scale(1.05);}
+.mti::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(10,15,30,.4));}
+.mtin{background:var(--bg2);padding:60px 50px;display:flex;flex-direction:column;justify-content:center;border-left:3px solid var(--gold);transition:background var(--tr);}
+.mtin .role{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.mtin h3{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--text);margin-bottom:20px;transition:color var(--tr);}
+.mtin p{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.8;color:var(--dim);margin-bottom:32px;}
+.cl{display:inline-flex;align-items:center;gap:10px;color:var(--gold);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:4px;transition:gap .3s;}
+.cl:hover{gap:16px;}
+.cl::after{content:'→';}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.tc{background:var(--bg2);opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s,background var(--tr);overflow:hidden;display:flex;flex-direction:column;}
+.tc.show{opacity:1;transform:translateY(0);}
+.tc:hover{background:var(--card);box-shadow:0 12px 40px rgba(0,0,0,.18);}
+.tp{width:100%;height:200px;overflow:hidden;position:relative;flex-shrink:0;background:var(--bg2);}
+.tp img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s;display:block;}
+.tc:hover .tp img{transform:scale(1.07);}
+.tph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gold),#0a0f1e);font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:#f5f0e8;}
+.tp::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to top,var(--bg2),transparent);pointer-events:none;transition:background var(--tr);}
+.tc:hover .tp::after{background:linear-gradient(to top,var(--card),transparent);}
+.tin{padding:20px 20px 24px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;flex:1;}
+.tc h4{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);transition:color var(--tr);line-height:1.3;}
+.tlv{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.tcl{display:inline-flex;align-items:center;gap:5px;color:var(--muted);text-decoration:none;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--bsoft);padding-bottom:2px;margin-top:8px;transition:color .3s,border-color .3s;}
+.tcl:hover{color:var(--gold);border-color:var(--gold);}
+.tcl::after{content:'→';}
+#gallery{padding:var(--sp);background:var(--bg2);position:relative;overflow:hidden;transition:background var(--tr);}
+#gallery::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.gg{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:4px;margin-top:60px;}
+.gi{overflow:hidden;position:relative;opacity:0;transform:scale(.95);transition:all .8s;}
+.gi.show{opacity:1;transform:scale(1);}
+.gi:first-child{grid-row:span 2;height:580px;}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s;min-height:280px;}
+.gi:hover img{transform:scale(1.06);}
+.go{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,30,.7),transparent);opacity:0;transition:opacity .3s;}
+.gi:hover .go{opacity:1;}
+#register{padding:var(--sp);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+.rl{opacity:0;transform:translateX(-30px);transition:all .9s;}
+.rl.show{opacity:1;transform:translateX(0);}
+.rl h2{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--text);line-height:1.1;margin:16px 0 28px;transition:color var(--tr);}
+.rl h2 em{color:var(--gold);font-style:italic;}
+.rl p{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.8;color:var(--dim);margin-bottom:40px;}
+.ci2{display:flex;flex-direction:column;gap:16px;}
+.cit{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--faint);}
+.cic{width:44px;height:44px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.rf{opacity:0;transform:translateX(30px);transition:all .9s .2s;}
+.rf.show{opacity:1;transform:translateX(0);}
+.fc{background:var(--bg2);padding:52px 48px;border:1px solid var(--bsoft);position:relative;transition:background var(--tr);}
+.fc::before{content:'';position:absolute;top:0;left:0;width:60px;height:3px;background:var(--gold);}
+.fg{margin-bottom:24px;}
+.fg label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.fg input,.fg select{width:100%;background:var(--inp);border:1px solid var(--bsoft);color:var(--text);padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .3s,background var(--tr),color var(--tr);appearance:none;cursor:pointer;}
+.fg input::placeholder{color:var(--muted);}
+.fg input:focus,.fg select:focus{border-color:var(--gold);}
+.fg select option{background:var(--bg2);color:var(--text);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.sb2{width:100%;background:var(--gold);color:#0a0f1e;border:none;padding:16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;margin-top:8px;}
+.sb2:hover{background:var(--gold-light);transform:translateY(-2px);}
+.bt{margin:14px 0 0;padding:0;background:var(--gold-light);width:100%;border:none;cursor:pointer;}
+.bt a{text-decoration:none;display:block;padding:15px 25px;background:var(--gold-light);color:#0a0f1e;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-align:center;transition:background .3s;}
+.bt a:hover{background:var(--gold);}
+footer{background:var(--foot);border-top:1px solid var(--bsoft);padding:80px 80px 40px;transition:background var(--tr);}
+.ftp{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid var(--bsoft);margin-bottom:40px;}
+.fb .logo{display:block;margin-bottom:20px;font-size:20px;}
+.fb p{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.8;color:var(--muted);max-width:300px;}
+.fcol h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.fcol a{text-decoration:none;font-size:14px;color:var(--muted);transition:color .3s;}
+.fcol a:hover{color:var(--text);}
+.fbot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);letter-spacing:1px;}
+.soc{display:flex;gap:20px;}
+.soc a{width:40px;height:40px;border:1px solid var(--bsoft);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:16px;transition:all .3s;}
+.soc a:hover{border-color:var(--gold);color:var(--gold);}
+.toast{position:fixed;bottom:40px;right:40px;background:var(--gold);color:#0a0f1e;padding:16px 28px;font-weight:600;font-size:14px;z-index:9999;transform:translateY(100px);opacity:0;transition:all .4s;max-width:calc(100vw - 48px);}
+.toast.show{transform:translateY(0);opacity:1;}
+.loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .8s;}
+.loader.hide{opacity:0;pointer-events:none;}
+.lt{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:8px;color:var(--text);}
+.lt span{color:var(--gold);}
+.lb2{width:200px;height:1px;background:rgba(201,168,76,.2);position:relative;overflow:hidden;}
+.lb2::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:ld 1.5s ease forwards;}
+@keyframes ld{to{left:0}}
+@keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{to{opacity:1}}
+.rv{opacity:0;transform:translateY(40px);transition:all .9s;}
+.rv.show{opacity:1;transform:translateY(0);}
+/* ===== 1200px ===== */
+@media(max-width:1200px){
+  .tg{grid-template-columns:repeat(3,1fr);}
+  .cg{grid-template-columns:repeat(3,1fr);}
+}
+/* ===== TABLET 1024px ===== */
+@media(max-width:1024px){
+  :root{--sp:90px 48px;}
+  nav{padding:18px 40px;}
+  nav.sc{padding:13px 40px;}
+  nav ul{display:none;}
+  .hb{display:flex;}
+  .nc .ls,.nc .tt{display:none;}
+  .sb{gap:40px;padding:48px 40px;flex-wrap:wrap;}
+  .sn{font-size:48px;}
+  #about{grid-template-columns:1fr;gap:60px;padding:90px 48px;}
+  .aiw img{height:420px;}
+  .at h2{font-size:42px;}
+  .cg{grid-template-columns:repeat(2,1fr);}
+  .st{font-size:42px;}
+  .sh{margin-bottom:60px;}
+  .mt{grid-template-columns:1fr;max-width:100%;}
+  .mti{height:360px;}
+  .mtin{padding:40px 36px;}
+  .mtin h3{font-size:34px;}
+  .tg{grid-template-columns:repeat(3,1fr);}
+  .tp{height:190px;}
+  .gg{grid-template-columns:1fr 1fr;}
+  .gi:first-child{grid-row:span 1;grid-column:span 2;height:340px;}
+  .gi img{min-height:280px;}
+  #register{grid-template-columns:1fr;gap:60px;padding:90px 48px;}
+  .rl h2{font-size:42px;}
+  .fc{padding:44px 40px;}
+  footer{padding:60px 40px 32px;}
+  .ftp{grid-template-columns:1fr 1fr;gap:40px;}
+}
+/* ===== MOBILE 768px ===== */
+@media(max-width:768px){
+  :root{--sp:70px 22px;}
+  body{cursor:auto;}
+  .cursor,.cursor-ring{display:none;}
+  nav{padding:15px 20px;}
+  nav.sc{padding:12px 20px;}
+  .logo{font-size:15px;letter-spacing:2px;}
+  .he{font-size:10px;letter-spacing:4px;margin-bottom:18px;}
+  .hc{padding:0 18px;}
+  .hs{font-size:17px;margin:18px 0 32px;line-height:1.5;}
+  .bp,.bo{padding:13px 28px;font-size:12px;}
+  .hbs{gap:14px;}
+  .sb{gap:28px;padding:36px 20px;}
+  .sn{font-size:40px;}
+  .slb{font-size:10px;letter-spacing:2px;}
+  #about{padding:70px 22px;gap:48px;}
+  .aiw img{height:280px;}
+  .aif{top:-14px;left:-14px;right:14px;bottom:14px;}
+  .ab{width:95px;height:95px;bottom:-14px;right:-8px;font-size:11px;}
+  .ab strong{font-size:20px;}
+  .at h2{font-size:32px;}
+  .at p{font-size:16px;line-height:1.7;}
+  .fl li{font-size:13px;}
+  #courses{padding:70px 22px;}
+  .cg{grid-template-columns:1fr;}
+  .cc{padding:36px 28px 28px;}
+  .cc h3{font-size:24px;}
+  .sh{margin-bottom:44px;}
+  .st{font-size:32px;}
+  #teachers{padding:70px 22px;}
+  .mti{height:260px;}
+  .mtin{padding:28px 24px;}
+  .mtin h3{font-size:26px;}
+  .mtin p{font-size:14px;margin-bottom:20px;}
+  .cl{font-size:11px;}
+  .tg{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .tp{height:165px;}
+  .tin{padding:14px 12px 18px;}
+  .tc h4{font-size:13px;}
+  .tlv{font-size:8px;}
+  .tcl{font-size:8px;}
+  #gallery{padding:70px 22px;}
+  .gg{grid-template-columns:1fr;gap:6px;}
+  .gi:first-child{grid-row:span 1;grid-column:span 1;height:230px;}
+  .gi img{min-height:190px;}
+  #register{padding:70px 22px;gap:44px;}
+  .rl h2{font-size:32px;}
+  .rl p{font-size:16px;}
+  .ci2{gap:14px;}
+  .cit{font-size:13px;}
+  .cic{width:38px;height:38px;font-size:16px;}
+  .fc{padding:32px 20px;}
+  .fr{grid-template-columns:1fr;}
+  .fg{margin-bottom:18px;}
+  footer{padding:44px 22px 26px;}
+  .ftp{grid-template-columns:1fr;gap:32px;}
+  .fb p{font-size:14px;}
+  .fbot{flex-direction:column;gap:14px;text-align:center;}
+  .soc a{width:36px;height:36px;}
+  .toast{bottom:20px;right:20px;font-size:13px;padding:14px 20px;}
+}
+/* ===== SMALL 480px ===== */
+@media(max-width:480px){
+  :root{--sp:56px 16px;}
+  nav{padding:13px 14px;}
+  .logo{font-size:13px;letter-spacing:1.5px;}
+  .logo span{display:inline;}
+  .he{display:none;}
+  .hs{font-size:15px;margin:14px 0 26px;}
+  .hbs{flex-direction:column;align-items:center;gap:10px;}
+  .bp,.bo{width:100%;max-width:260px;text-align:center;padding:13px 20px;font-size:11px;}
+  .hscr{display:none;}
+  .sb{gap:20px;padding:30px 14px;}
+  .sn{font-size:36px;}
+  .slb{font-size:9px;letter-spacing:1.5px;}
+  .si{min-width:120px;}
+  #about{padding:56px 16px;gap:40px;}
+  .aiw img{height:240px;}
+  .aif{display:none;}
+  .ab{width:85px;height:85px;bottom:-12px;right:-6px;font-size:10px;}
+  .ab strong{font-size:18px;}
+  .at h2{font-size:26px;}
+  .at p{font-size:15px;}
+  .gd{width:60px;}
+  .sl{font-size:9px;letter-spacing:3px;}
+  #courses{padding:56px 16px;}
+  .cg{grid-template-columns:1fr;gap:14px;}
+  .cc{padding:28px 18px 22px;}
+  .cn{font-size:56px;}
+  .ci{font-size:26px;}
+  .cc h3{font-size:21px;}
+  .cc p{font-size:14px;}
+  .cf li{font-size:12px;}
+  .st{font-size:26px;}
+  .sh{margin-bottom:36px;}
+  #teachers{padding:56px 16px;}
+  .mt{border:none;}
+  .mti{height:240px;}
+  .mtin{padding:24px 18px;border-left:2px solid var(--gold);}
+  .mtin .role{font-size:9px;}
+  .mtin h3{font-size:22px;margin-bottom:14px;}
+  .mtin p{font-size:13px;margin-bottom:18px;}
+  .tg{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .tp{height:150px;}
+  .tin{padding:10px 10px 14px;}
+  .tc h4{font-size:12px;}
+  .tlv{font-size:7px;letter-spacing:1px;}
+  .tcl{font-size:7px;margin-top:4px;}
+  #gallery{padding:56px 16px;}
+  .gg{grid-template-columns:1fr;gap:5px;}
+  .gi:first-child{height:190px;}
+  .gi img{min-height:170px;}
+  #register{padding:56px 16px;gap:36px;}
+  .rl h2{font-size:26px;}
+  .rl p{font-size:15px;margin-bottom:28px;}
+  .fc{padding:24px 14px;}
+  .fc::before{width:40px;}
+  .fg label{font-size:9px;}
+  .fg input,.fg select{padding:12px 14px;font-size:13px;}
+  .sb2{font-size:11px;letter-spacing:2px;padding:14px;}
+  .bt a{font-size:11px;letter-spacing:2px;padding:13px;}
+  footer{padding:36px 14px 22px;}
+  .fb p{font-size:13px;}
+  .fcol h5{font-size:9px;margin-bottom:16px;}
+  .fcol a{font-size:13px;}
+  .fbot{font-size:10px;gap:12px;}
+  .soc{gap:12px;}
+  .soc a{width:34px;height:34px;font-size:14px;}
+  .mn a{font-size:20px;gap:20px;}
+  .toast{right:12px;left:12px;bottom:16px;font-size:12px;padding:12px 16px;}
+}
+/* ===== KICHIK 360px ===== */
+@media(max-width:360px){
+  :root{--sp:48px 12px;}
+  nav{padding:12px 12px;}
+  .logo{font-size:12px;}
+  .hs{font-size:14px;}
+  .bp,.bo{max-width:230px;font-size:10px;}
+  .sn{font-size:32px;}
+  .at h2{font-size:24px;}
+  .st{font-size:23px;}
+  .cc h3{font-size:19px;}
+  .tg{grid-template-columns:1fr 1fr;gap:6px;}
+  .tp{height:140px;}
+  .tc h4{font-size:11px;}
+  .mtin h3{font-size:20px;}
+  .rl h2{font-size:23px;}
+  .fc{padding:20px 12px;}
+}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="lt">AMERICAN <span>Academy</span></div><div class="lb2"></div></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cr"></div>
+<div class="mn" id="mn">
+  <a href="#home" onclick="closeMN()" data-i="nav_home">Home</a>
+  <a href="#about" onclick="closeMN()" data-i="nav_about">About</a>
+  <a href="#courses" onclick="closeMN()" data-i="nav_courses">Courses</a>
+  <a href="#teachers" onclick="closeMN()" data-i="nav_teachers">Teachers</a>
+  <a href="#gallery" onclick="closeMN()" data-i="nav_gallery">Gallery</a>
+  <a href="#register" onclick="closeMN()" data-i="nav_register">Register</a>
+  <div class="mnc">
+    <button class="lb" onclick="setLang('uz')">UZ</button>
+    <button class="lb" onclick="setLang('en')">EN</button>
+    <button class="lb" onclick="setLang('ru')">RU</button>
+    <button class="tt" id="ttm" onclick="toggleTheme()">🌙</button>
+  </div>
+</div>
+<nav id="nav">
+  <a href="#home" class="logo">AMERICAN <span>Academy</span></a>
+  <ul>
+    <li><a href="#home" data-i="nav_home">Home</a></li>
+    <li><a href="#about" data-i="nav_about">About</a></li>
+    <li><a href="#courses" data-i="nav_courses">Courses</a></li>
+    <li><a href="#teachers" data-i="nav_teachers">Teachers</a></li>
+    <li><a href="#gallery" data-i="nav_gallery">Gallery</a></li>
+    <li><a href="#register" data-i="nav_register">Register</a></li>
+  </ul>
+  <div class="nc">
+    <div class="ls">
+      <button class="lb" onclick="setLang('uz')">UZ</button>
+      <button class="lb" onclick="setLang('en')">EN</button>
+      <button class="lb" onclick="setLang('ru')">RU</button>
+    </div>
+    <button class="tt" id="tt" onclick="toggleTheme()">🌙</button>
+  </div>
+  <button class="hb" id="hb" onclick="toggleMN()"><span></span><span></span><span></span></button>
+</nav>
+<header id="home">
+  <div class="hbg"></div><div class="hov"></div>
+  <div class="pts" id="pts"></div>
+  <div class="hc">
+    <p class="he" data-i="hero_eyebrow">✦ Xorazm, O'zbekiston ✦</p>
+    <h1 class="ht">AMERICAN<br><em>Academy</em></h1>
+    <p class="hs" data-i="hero_subtitle">Ingliz tili ta'limida mukammallik</p>
+    <div class="hbs">
+      <a href="#courses" class="bp" data-i="hero_btn1">Kurslarni Ko'rish</a>
+      <a href="#register" class="bo" data-i="hero_btn2">Ro'yxatdan O'tish</a>
+    </div>
+  </div>
+  <div class="hscr"><div class="sln"></div><span data-i="scroll">Pastga</span></div>
+</header>
+<div class="sb">
+  <div class="si rv"><div class="sn" data-count="500">0</div><div class="slb" data-i="s_grad">Bitiruvchilar</div></div>
+  <div class="si rv"><div class="sn" data-count="8">0</div><div class="slb" data-i="s_exp">Yillik Tajriba</div></div>
+  <div class="si rv"><div class="sn" data-count="12">0</div><div class="slb" data-i="s_teach">O'qituvchilar</div></div>
+  <div class="si rv"><div class="sn" data-count="95">0</div><div class="slb" data-i="s_ielts">% IELTS Muvaffaqiyati</div></div>
+</div>
+<section id="about">
+  <div class="aiw rv"><div class="aif"></div><img src="img/logo.jpg" alt="Academy"><div class="ab"><strong>8+</strong><span data-i="badge">Yillik Tajriba</span></div></div>
+  <div class="at rv">
+    <p class="sl" data-i="about_lbl">✦ Biz Haqimizda</p><div class="gd"></div>
+    <h2>Academy <em>Learning</em> Center</h2>
+    <p data-i="about_p1">American Academy — bu ingliz tilini professional darajada o'rgatishga ixtisoslashgan zamonaviy o'quv markazi.</p>
+    <p data-i="about_p2">Tajribali o'qituvchilar, zamonaviy metodlar va qulay muhit — bizning asosiy qadriyatlarimiz.</p>
+    <ul class="fl">
+      <li data-i="f1">Professional va sertifikatlangan o'qituvchilar</li>
+      <li data-i="f2">Kichik guruhlar — har biriga individual e'tibor</li>
+      <li data-i="f3">CEFR standartlariga mos o'quv dasturi</li>
+      <li data-i="f4">Moslashuvchan dars jadvali</li>
+      <li data-i="f5">IELTS 7.0+ band natijasiga erishish kafolati</li>
+    </ul>
+  </div>
+</section>
+<section id="courses">
+  <div class="sh rv"><p class="sl" data-i="c_lbl">✦ Kurslar</p><div class="gd"></div><h2 class="st" data-i="c_title">Kurslarimiz</h2></div>
+  <div class="cg">
+    <div class="cc rv" style="transition-delay:0s"><div class="cn">01</div><div class="clv">Level A1</div><div class="ci">🌱</div><h3 data-i="c1t">Boshlang'ich</h3><p data-i="c1d">Ingliz tilini mutlaqo noldan boshlovchilar uchun. Alifbo, asosiy so'zlar, oddiy jumlalar va kundalik muloqotning birinchi qadamlari.</p><ul class="cf"><li data-i="c1f1">Harflar va tovushlar</li><li data-i="c1f2">100+ asosiy so'z boyligi</li><li data-i="c1f3">Tanishuv dialoglar</li><li data-i="c1f4">Present Simple grammatikasi</li></ul><div class="cft"><div class="cd" data-i="d34">⏱ 3–4 oy</div><div class="cnx">→ Elementary</div></div></div>
+    <div class="cc rv" style="transition-delay:.08s"><div class="cn">02</div><div class="clv">Level A2</div><div class="ci">📖</div><h3 data-i="c2t">Elementary</h3><p data-i="c2d">Asosiy grammatika va kundalik hayot mavzularida bemalol gaplasha olish. Do'kon, shifoxona, sayohat kabi real vaziyatlar.</p><ul class="cf"><li data-i="c2f1">Past & Future zamonlar</li><li data-i="c2f2">500+ so'z boyligi</li><li data-i="c2f3">Listening & Speaking</li><li data-i="c2f4">Reading — qisqa matnlar</li></ul><div class="cft"><div class="cd" data-i="d34">⏱ 3–4 oy</div><div class="cnx">→ Pre-Intermediate</div></div></div>
+    <div class="cc rv" style="transition-delay:.16s"><div class="cn">03</div><div class="clv">Level B1–</div><div class="ci">⚡</div><h3 data-i="c3t">Pre-Intermediate</h3><p data-i="c3d">Grammatikani chuqurlashtirish va og'zaki nutqni erkin rivojlantirish. Murakkab mavzular va professional lug'at.</p><ul class="cf"><li data-i="c3f1">Perfect zamonlar tizimi</li><li data-i="c3f2">1000+ leksika</li><li data-i="c3f3">Paragraph yozish</li><li data-i="c3f4">Ingliz filmlar + podkastlar</li></ul><div class="cft"><div class="cd" data-i="d34">⏱ 3–4 oy</div><div class="cnx">→ Intermediate</div></div></div>
+    <div class="cc rv" style="transition-delay:.24s"><div class="cn">04</div><div class="clv">Level B1</div><div class="ci">🎯</div><h3 data-i="c4t">Intermediate</h3><p data-i="c4d">Erkin muloqot, academic writing va listening ko'nikmalarini professional darajaga olib chiqish.</p><ul class="cf"><li data-i="c4f1">Academic & Business inglizi</li><li data-i="c4f2">Essay writing texnikasi</li><li data-i="c4f3">Debate va prezentatsiya</li><li data-i="c4f4">2000+ leksika va idiomlar</li></ul><div class="cft"><div class="cd" data-i="d34">⏱ 3–4 oy</div><div class="cnx">→ Pre-IELTS</div></div></div>
+    <div class="cc cc--h rv" style="transition-delay:.32s"><div class="cn">05</div><div class="clv">Level B2</div><div class="ci">🏆</div><h3 data-i="c5t">Pre-IELTS</h3><p data-i="c5d">IELTS imtihoniga tayyorlanishning birinchi bosqichi. To'rt ko'nikma: Reading, Writing, Listening, Speaking.</p><ul class="cf"><li data-i="c5f1">IELTS format bilan tanishuv</li><li data-i="c5f2">Band 5.0–6.0 maqsad</li><li data-i="c5f3">Strategiya va texnikalar</li><li data-i="c5f4">Mock test & tahlil</li></ul><div class="cft"><div class="cd" data-i="d34">⏱ 3–4 oy</div><div class="cnx">→ IELTS Standard</div></div></div>
+    <div class="cc cc--g rv" style="transition-delay:.4s"><div class="cn">06</div><div class="clv">Level C1</div><div class="ci">✦</div><h3 data-i="c6t">IELTS Standard</h3><p data-i="c6d">Band 7.0–8.0 ga yo'naltirilgan intensiv professional kurs. Haqiqiy imtihon sharoitida mashq va ekspert yordami.</p><ul class="cf"><li data-i="c6f1">Band 7.0+ kafolati</li><li data-i="c6f2">Haqiqiy imtihon simulyatsiyasi</li><li data-i="c6f3">Shaxsiy dars rejasi</li><li data-i="c6f4">Speaking & Writing intensive</li></ul><div class="cft"><div class="cd" data-i="d4">⏱ 4 oy intensiv</div><div class="cnx">→ Band 7.0+</div></div></div>
+  </div>
+</section>
+<section id="teachers">
+  <div class="sh rv"><p class="sl" data-i="t_lbl">✦ O'qituvchilar</p><div class="gd"></div><h2 class="st" data-i="t_title">Bizning O'qituvchilar</h2></div>
+  <div class="mt rv">
+    <div class="mti"><img src="img/og'abek_ruzmetov.jpg" alt="Og'abek Ruzmetov"></div>
+    <div class="mtin">
+      <div class="role" data-i="head_role">✦ Bosh O'qituvchi va Asoschisi</div>
+      <h3>Og'abek Ruzmetov</h3>
+      <p data-i="head_desc">Cambridge CELTA sertifikatiga ega, 10 yildan ortiq tajribali ingliz tili o'qituvchisi. IELTS 9.0 band sohibasi va 200+ bitiruvchilarning ustozi.</p>
+      <a href="img/certs/ogabek-cert.jpg" target="_blank" class="cl" data-i="cert_lnk">Sertifikatni Ko'rish</a>
+    </div>
+  </div>
+  <div class="tg">
+    <div class="tc rv" style="transition-delay:.05s"><div class="tp"><img src="img/teachers/aziz.jpg" alt="Aziz Toshmatov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">A</div></div><div class="tin"><h4>Aziz Toshmatov</h4><span class="tlv">Beginner — Elementary</span><a href="img/certs/aziz-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.1s"><div class="tp"><img src="img/teachers/malika.jpg" alt="Malika Yusupova" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">M</div></div><div class="tin"><h4>Malika Yusupova</h4><span class="tlv">Pre-Intermediate</span><a href="img/certs/malika-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.15s"><div class="tp"><img src="img/teachers/sardor.jpg" alt="Sardor Nazarov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">S</div></div><div class="tin"><h4>Sardor Nazarov</h4><span class="tlv">Intermediate</span><a href="img/certs/sardor-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.2s"><div class="tp"><img src="img/teachers/zulfiya.jpg" alt="Zulfiya Ahmedova" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">Z</div></div><div class="tin"><h4>Zulfiya Ahmedova</h4><span class="tlv">IELTS Specialist</span><a href="img/certs/zulfiya-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.25s"><div class="tp"><img src="img/teachers/jasur.jpg" alt="Jasur Mirzayev" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">J</div></div><div class="tin"><h4>Jasur Mirzayev</h4><span class="tlv">Conversation Club</span><a href="img/certs/jasur-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.3s"><div class="tp"><img src="img/teachers/nodira.jpg" alt="Nodira Xoliqova" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">N</div></div><div class="tin"><h4>Nodira Xoliqova</h4><span class="tlv">Academic Writing</span><a href="img/certs/nodira-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.35s"><div class="tp"><img src="img/teachers/suhrob.jpg" alt="Suhrob Mammedov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">S</div></div><div class="tin"><h4>Suhrob Mammedov</h4><span class="tlv">Beginner</span><a href="img/certs/suhrob-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.4s"><div class="tp"><img src="img/teachers/davronbek.jpg" alt="Davronbek Ozodov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">D</div></div><div class="tin"><h4>Davronbek Ozodov</h4><span class="tlv">Beginner</span><a href="img/certs/davronbek-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.45s"><div class="tp"><img src="img/teachers/saida.jpg" alt="Saida Xushnudova" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">S</div></div><div class="tin"><h4>Saida Xushnudova</h4><span class="tlv">Pre-IELTS</span><a href="img/certs/saida-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.5s"><div class="tp"><img src="img/teachers/munisa.jpg" alt="Munisa Sattorova" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">M</div></div><div class="tin"><h4>Munisa Sattorova</h4><span class="tlv">IELTS Standart</span><a href="img/certs/munisa-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.55s"><div class="tp"><img src="img/teachers/muhammadali.jpg" alt="Muhammadali Rasulov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">M</div></div><div class="tin"><h4>Muhammadali Rasulov</h4><span class="tlv">Pre-Intermediate</span><a href="img/certs/muhammadali-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+    <div class="tc rv" style="transition-delay:.6s"><div class="tp"><img src="img/teachers/asad.jpg" alt="Asad Qodirov" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="tph" style="display:none">A</div></div><div class="tin"><h4>Asad Qodirov</h4><span class="tlv">IELTS Standart</span><a href="img/certs/asad-cert.jpg" target="_blank" class="tcl" data-i="cv">Sertifikat</a></div></div>
+  </div>
+</section>
+<section id="gallery">
+  <div class="sh rv"><p class="sl" data-i="g_lbl">✦ Galereya</p><div class="gd"></div><h2 class="st" data-i="g_title">Bizning Akademiya</h2></div>
+  <div class="gg">
+    <div class="gi rv"><img src="img/Gallery2.jpg" alt="Academy"><div class="go"></div></div>
+    <div class="gi rv" style="transition-delay:.1s"><img src="img/Gallery1.jpg" alt="Academy"><div class="go"></div></div>
+    <div class="gi rv" style="transition-delay:.2s"><img src="img/Gallery3.jpg" alt="Academy"><div class="go"></div></div>
+    <div class="gi rv" style="transition-delay:.3s"><img src="img/Gallery4.jpg" alt="Academy"><div class="go"></div></div>
+    <div class="gi rv" style="transition-delay:.4s"><img src="img/Gallery6.jpg" alt="Academy"><div class="go"></div></div>
+  </div>
+</section>
+<section id="register">
+  <div class="rl rv">
+    <p class="sl" data-i="r_lbl">✦ Ro'yxatdan O'ting</p>
+    <div class="gd" style="margin:0 0 20px"></div>
+    <h2>Start Your <em>Journey</em> Today</h2>
+    <p data-i="r_desc">O'z orzuingizga qadam tashlang. Formani to'ldiring va biz siz bilan tez orada bog'lanamiz.</p>
+    <div class="ci2">
+      <div class="cit"><div class="cic">📍</div><span data-i="r_addr">O'zbekiston, Xorazm, Xonqa</span></div>
+      <div class="cit"><div class="cic">📞</div><span>+998 97 740 33 19</span></div>
+      <div class="cit"><div class="cic">✉️</div><span>info@americanacademy.uz</span></div>
+      <div class="cit"><div class="cic">🕐</div><span data-i="r_hrs">Dush–Shan: 8:00 – 20:00</span></div>
+    </div>
+  </div>
+  <div class="rf rv">
+    <div class="fc">
+      <form id="regForm">
+        <div class="fr">
+          <div class="fg"><label data-i="fn">Ism</label><input type="text" id="fn" data-ip="fnp" placeholder="Ismingiz" required></div>
+          <div class="fg"><label data-i="fsn">Familya</label><input type="text" id="fsn" data-ip="fsnp" placeholder="Familyangiz" required></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label data-i="fa">Yosh</label><input type="number" id="fa" data-ip="fap" placeholder="Yoshingiz" required min="5" max="70"></div>
+          <div class="fg"><label data-i="fl">Daraja</label>
+            <select id="fl" required>
+              <option value="" disabled selected data-i="fsel">Tanlang</option>
+              <option>Beginner</option><option>Elementary</option><option>Pre-Intermediate</option>
+              <option>Intermediate</option><option>Pre-IELTS</option><option>IELTS Standard</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label data-i="fph">Telefon</label><input type="tel" id="fph" placeholder="+998 90 000 00 00" required></div>
+        <button type="submit" class="sb2" id="sbtn" data-i="fsub">Ma'lumot Yuborish</button>
+        <button type="button" class="bt"><a href="https://test-level-english.netlify.app/" target="_blank" data-i="ftest">English Test</a></button>
+      </form>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="ftp">
+    <div class="fb"><a href="#home" class="logo">AMERICAN <span>Academy</span></a><p data-i="ft_desc">2016 yildan beri ingliz tili ta'limida mukammallik. O'quvchilarning orzulariga erishishiga yordam beramiz.</p></div>
+    <div class="fcol"><h5 data-i="ft_nav">Navigatsiya</h5><ul>
+      <li><a href="#home" data-i="nav_home">Home</a></li>
+      <li><a href="#about" data-i="nav_about">About</a></li>
+      <li><a href="#courses" data-i="nav_courses">Courses</a></li>
+      <li><a href="#teachers" data-i="nav_teachers">Teachers</a></li>
+      <li><a href="#gallery" data-i="nav_gallery">Gallery</a></li>
+      <li><a href="#register" data-i="nav_register">Register</a></li>
+    </ul></div>
+    <div class="fcol"><h5 data-i="ft_con">Aloqa</h5><ul>
+      <li><a href="https://instagram.com/AMERICAN_ACADEMY_UZB">📷 Instagram</a></li>
+      <li><a href="https://youtube.com/@americanacademyuzb">▶️ YouTube</a></li>
+      <li><a href="https://t.me/AMERICAN_ACADEMY_UZB">✈️ Telegram</a></li>
+      <li><a href="tel:+998977403319">📞 +998 97 740 33 19</a></li>
+    </ul></div>
+  </div>
+  <div class="fbot">
+    <span data-i="ft_copy">© 2026 Javlonboyev Javohir. Barcha huquqlar himoyalangan.</span>
+    <div class="soc">
+      <a href="https://instagram.com/AMERICAN_ACADEMY_UZB">📷</a>
+      <a href="https://t.me/AMERICAN_ACADEMY_UZB">✈️</a>
+      <a href="https://youtube.com/@americanacademyuzb">▶️</a>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<script>
+const T={
+uz:{nav_home:"Home",nav_about:"About",nav_courses:"Courses",nav_teachers:"Teachers",nav_gallery:"Gallery",nav_register:"Register",hero_eyebrow:"✦ Xorazm, O'zbekiston ✦",hero_subtitle:"Ingliz tili ta'limida mukammallik — Ambitsiya mahoratga aylanadigan joy",hero_btn1:"Kurslarni Ko'rish",hero_btn2:"Ro'yxatdan O'tish",scroll:"Pastga",s_grad:"Bitiruvchilar",s_exp:"Yillik Tajriba",s_teach:"O'qituvchilar",s_ielts:"% IELTS Muvaffaqiyati",badge:"Yillik Tajriba",about_lbl:"✦ Biz Haqimizda",about_p1:"American Academy — ingliz tilini professional darajada o'rgatishga ixtisoslashgan zamonaviy o'quv markazi. Biz har bir o'quvchining maqsadiga erishishiga yordam beramiz.",about_p2:"Tajribali o'qituvchilar, zamonaviy metodlar va qulay muhit — bizning asosiy qadriyatlarimiz. IELTS dan Beginnerga qadar — har bosqichda biz sizdanmiz.",f1:"Professional va sertifikatlangan o'qituvchilar",f2:"Kichik guruhlar — individual e'tibor",f3:"CEFR standartlariga mos o'quv dasturi",f4:"Moslashuvchan dars jadvali",f5:"IELTS 7.0+ band kafolati",c_lbl:"✦ Kurslar",c_title:"Kurslarimiz",c1t:"Boshlang'ich",c1d:"Ingliz tilini noldan boshlovchilar uchun. Alifbo, asosiy so'zlar, oddiy jumlalar va kundalik muloqotning birinchi qadamlari.",c1f1:"Harflar va tovushlar",c1f2:"100+ so'z boyligi",c1f3:"Tanishuv dialoglar",c1f4:"Present Simple grammatika",c2t:"Elementary",c2d:"Asosiy grammatika va kundalik hayot mavzularida gaplasha olish. Do'kon, shifoxona, sayohat kabi vaziyatlar.",c2f1:"Past & Future zamonlar",c2f2:"500+ so'z boyligi",c2f3:"Listening & Speaking",c2f4:"Reading — qisqa matnlar",c3t:"Pre-Intermediate",c3d:"Grammatikani chuqurlashtirish va og'zaki nutqni rivojlantirish. Murakkab mavzular va professional lug'at.",c3f1:"Perfect zamonlar tizimi",c3f2:"1000+ leksika",c3f3:"Paragraph yozish",c3f4:"Ingliz filmlar + podkastlar",c4t:"Intermediate",c4d:"Erkin muloqot, academic writing va listening ko'nikmalarini professional darajaga olib chiqish.",c4f1:"Academic & Business inglizi",c4f2:"Essay writing texnikasi",c4f3:"Debate va prezentatsiya",c4f4:"2000+ leksika va idiomlar",c5t:"Pre-IELTS",c5d:"IELTS imtihoniga tayyorlanishning birinchi bosqichi. To'rt ko'nikma: Reading, Writing, Listening, Speaking.",c5f1:"IELTS format bilan tanishuv",c5f2:"Band 5.0–6.0 maqsad",c5f3:"Strategiya va texnikalar",c5f4:"Mock test & tahlil",c6t:"IELTS Standard",c6d:"Band 7.0–8.0 ga yo'naltirilgan intensiv kurs. Haqiqiy imtihon sharoitida mashq va ekspert yordami.",c6f1:"Band 7.0+ kafolati",c6f2:"Haqiqiy imtihon simulyatsiyasi",c6f3:"Shaxsiy dars rejasi",c6f4:"Speaking & Writing intensive",d34:"⏱ 3–4 oy",d4:"⏱ 4 oy intensiv",t_lbl:"✦ O'qituvchilar",t_title:"Bizning O'qituvchilar",head_role:"✦ Bosh O'qituvchi va Asoschisi",head_desc:"Cambridge CELTA sertifikatiga ega, 10 yildan ortiq tajribali ingliz tili o'qituvchisi. IELTS 9.0 band sohibasi va 200+ bitiruvchilarning ustozi.",cert_lnk:"CEFR / IELTS Sertifikatni Ko'rish",cv:"Sertifikat →",g_lbl:"✦ Galereya",g_title:"Bizning Akademiya",r_lbl:"✦ Ro'yxatdan O'ting",r_desc:"O'z orzuingizga qadam tashlang. Formani to'ldiring va biz siz bilan tez orada bog'lanamiz.",r_addr:"O'zbekiston, Xorazm, Xonqa",r_hrs:"Dush–Shan: 8:00 – 20:00",fn:"Ism",fnp:"Ismingiz",fsn:"Familya",fsnp:"Familyangiz",fa:"Yosh",fap:"Yoshingiz",fl:"Daraja",fsel:"Tanlang",fph:"Telefon",fsub:"Ma'lumot Yuborish",ftest:"Ingliz Tili Testi",ft_desc:"2016 yildan beri ingliz tili ta'limida mukammallik. O'quvchilarning orzulariga erishishiga yordam beramiz.",ft_nav:"Navigatsiya",ft_con:"Aloqa",ft_copy:"© 2026 Javlonboyev Javohir. Barcha huquqlar himoyalangan.",tok:"✅ Muvaffaqiyatli yuborildi!",terr:"❌ Xatolik yuz berdi.",tnet:"❌ Internet xatoligi.",tsend:"Yuborilmoqda..."},
+en:{nav_home:"Home",nav_about:"About",nav_courses:"Courses",nav_teachers:"Teachers",nav_gallery:"Gallery",nav_register:"Register",hero_eyebrow:"✦ Khorezm, Uzbekistan ✦",hero_subtitle:"Excellence in English Education — Where ambition meets mastery",hero_btn1:"Explore Courses",hero_btn2:"Register Now",scroll:"Scroll",s_grad:"Graduates",s_exp:"Years Experience",s_teach:"Teachers",s_ielts:"% IELTS Success",badge:"Years of Experience",about_lbl:"✦ About Us",about_p1:"American Academy is a modern educational center specializing in professional English language training. We help every student achieve their goals.",about_p2:"Experienced teachers, modern methods and a comfortable environment — our core values. From IELTS to Beginner — we are with you at every step.",f1:"Professional and certified teachers",f2:"Small groups — individual attention",f3:"Curriculum aligned with CEFR standards",f4:"Flexible class schedule",f5:"Guaranteed IELTS 7.0+ band result",c_lbl:"✦ Courses",c_title:"Our Courses",c1t:"Beginner",c1d:"A course for absolute beginners. Alphabet, basic vocabulary, simple sentences and first steps in daily communication.",c1f1:"Letters and sounds",c1f2:"100+ basic vocabulary",c1f3:"Introduction dialogues",c1f4:"Present Simple grammar",c2t:"Elementary",c2d:"Basic grammar and communicating freely on everyday topics. Real-life situations: shops, hospitals, travel.",c2f1:"Past & Future tenses",c2f2:"500+ vocabulary",c2f3:"Listening & Speaking",c2f4:"Reading — short texts",c3t:"Pre-Intermediate",c3d:"Deepening grammar and developing oral speech. Complex topics and professional vocabulary.",c3f1:"Perfect tense system",c3f2:"1000+ lexicon",c3f3:"Paragraph writing",c3f4:"English films + podcasts",c4t:"Intermediate",c4d:"Taking free communication, academic writing and listening to a professional level.",c4f1:"Academic & Business English",c4f2:"Essay writing techniques",c4f3:"Debate and presentation",c4f4:"2000+ lexicon and idioms",c5t:"Pre-IELTS",c5d:"First stage of IELTS preparation. Four skills: Reading, Writing, Listening, Speaking.",c5f1:"Introduction to IELTS format",c5f2:"Band 5.0–6.0 target",c5f3:"Strategies and techniques",c5f4:"Mock test & analysis",c6t:"IELTS Standard",c6d:"Intensive course aimed at Band 7.0–8.0. Practice in real exam conditions and expert support.",c6f1:"Band 7.0+ guaranteed",c6f2:"Real exam simulation",c6f3:"Personal study plan",c6f4:"Speaking & Writing intensive",d34:"⏱ 3–4 months",d4:"⏱ 4 months intensive",t_lbl:"✦ Teachers",t_title:"Our Teachers",head_role:"✦ Head Teacher & Founder",head_desc:"Holder of Cambridge CELTA certificate, English teacher with 10+ years experience. IELTS 9.0 band holder and mentor of 200+ successful graduates.",cert_lnk:"View CEFR / IELTS Certificate",cv:"Certificate →",g_lbl:"✦ Gallery",g_title:"Our Academy",r_lbl:"✦ Register",r_desc:"Take a step toward your dream. Fill out the form and we will contact you soon.",r_addr:"Uzbekistan, Khorezm, Khonqa",r_hrs:"Mon–Sat: 8:00 – 20:00",fn:"First Name",fnp:"Your first name",fsn:"Last Name",fsnp:"Your last name",fa:"Age",fap:"Your age",fl:"Level",fsel:"Select level",fph:"Phone Number",fsub:"Send Information",ftest:"English Level Test",ft_desc:"Excellence in English education since 2016. Empowering students to achieve their dreams.",ft_nav:"Navigation",ft_con:"Connect",ft_copy:"© 2026 Javlonboyev Javohir. All rights reserved.",tok:"✅ Sent successfully!",terr:"❌ An error occurred.",tnet:"❌ Network error.",tsend:"Sending..."},
+ru:{nav_home:"Главная",nav_about:"О нас",nav_courses:"Курсы",nav_teachers:"Учителя",nav_gallery:"Галерея",nav_register:"Записаться",hero_eyebrow:"✦ Хорезм, Узбекистан ✦",hero_subtitle:"Совершенство в обучении английскому — там, где амбиции встречают мастерство",hero_btn1:"Смотреть курсы",hero_btn2:"Записаться",scroll:"Вниз",s_grad:"Выпускников",s_exp:"Лет опыта",s_teach:"Учителей",s_ielts:"% Успех IELTS",badge:"Лет опыта",about_lbl:"✦ О нас",about_p1:"American Academy — современный образовательный центр, специализирующийся на профессиональном обучении английскому языку. Мы помогаем каждому достичь своих целей.",about_p2:"Опытные преподаватели, современные методы и комфортная среда — наши ценности. От IELTS до Beginner — мы с вами на каждом этапе.",f1:"Профессиональные и сертифицированные учителя",f2:"Малые группы — индивидуальное внимание",f3:"Учебная программа по стандартам CEFR",f4:"Гибкое расписание занятий",f5:"Гарантия результата IELTS 7.0+ band",c_lbl:"✦ Курсы",c_title:"Наши Курсы",c1t:"Beginner",c1d:"Курс для абсолютных новичков. Алфавит, базовые слова, простые предложения и первые шаги в общении.",c1f1:"Буквы и звуки",c1f2:"100+ лексика",c1f3:"Диалоги знакомства",c1f4:"Грамматика Present Simple",c2t:"Elementary",c2d:"Основная грамматика и общение на бытовые темы. Реальные ситуации: магазин, больница, путешествия.",c2f1:"Прошедшее и будущее время",c2f2:"500+ лексика",c2f3:"Аудирование и разговор",c2f4:"Чтение — короткие тексты",c3t:"Pre-Intermediate",c3d:"Углубление грамматики и развитие устной речи. Сложные темы и профессиональная лексика.",c3f1:"Система времён Perfect",c3f2:"1000+ лексика",c3f3:"Написание абзацев",c3f4:"Английские фильмы + подкасты",c4t:"Intermediate",c4d:"Доведение навыков общения, письма и аудирования до профессионального уровня.",c4f1:"Академический и деловой английский",c4f2:"Техника написания эссе",c4f3:"Дебаты и презентации",c4f4:"2000+ лексика и идиомы",c5t:"Pre-IELTS",c5d:"Первый этап подготовки к IELTS. Четыре навыка: Reading, Writing, Listening, Speaking.",c5f1:"Знакомство с форматом IELTS",c5f2:"Цель Band 5.0–6.0",c5f3:"Стратегии и техники",c5f4:"Пробный тест & анализ",c6t:"IELTS Standard",c6d:"Интенсивный курс на Band 7.0–8.0. Практика в условиях реального экзамена.",c6f1:"Гарантия Band 7.0+",c6f2:"Симуляция экзамена",c6f3:"Индивидуальный план",c6f4:"Интенсив Speaking & Writing",d34:"⏱ 3–4 месяца",d4:"⏱ 4 месяца интенсив",t_lbl:"✦ Учителя",t_title:"Наши Учителя",head_role:"✦ Главный учитель и основатель",head_desc:"Обладатель Cambridge CELTA, преподаватель с 10+ лет опыта. IELTS 9.0 band и наставник 200+ выпускников.",cert_lnk:"Посмотреть сертификат CEFR / IELTS",cv:"Сертификат →",g_lbl:"✦ Галерея",g_title:"Наша Академия",r_lbl:"✦ Записаться",r_desc:"Сделайте шаг к своей мечте. Заполните форму и мы свяжемся с вами.",r_addr:"Узбекистан, Хорезм, Хонка",r_hrs:"Пн–Сб: 8:00 – 20:00",fn:"Имя",fnp:"Ваше имя",fsn:"Фамилия",fsnp:"Ваша фамилия",fa:"Возраст",fap:"Ваш возраст",fl:"Уровень",fsel:"Выберите уровень",fph:"Номер телефона",fsub:"Отправить данные",ftest:"Тест по английскому",ft_desc:"Совершенство в обучении английскому языку с 2016 года.",ft_nav:"Навигация",ft_con:"Контакты",ft_copy:"© 2026 Javlonboyev Javohir. Все права защищены.",tok:"✅ Данные успешно отправлены!",terr:"❌ Произошла ошибка.",tnet:"❌ Ошибка сети.",tsend:"Отправка..."}
+};
+let lang=localStorage.getItem('aa_lang')||'uz';
+let theme=localStorage.getItem('aa_theme')||'dark';
+document.documentElement.setAttribute('data-theme',theme);
+function setLang(l){
+  lang=l;localStorage.setItem('aa_lang',l);document.documentElement.lang=l;
+  const d=T[l];
+  document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(d[k]!==undefined)el.textContent=d[k];});
+  document.querySelectorAll('[data-ip]').forEach(el=>{const k=el.getAttribute('data-ip');if(d[k]!==undefined)el.placeholder=d[k];});
+  const opt=document.querySelector('#fl option[value=""]');if(opt)opt.textContent=d.fsel||'Select';
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.trim()===l.toUpperCase()));
+}
+function toggleTheme(){
+  theme=theme==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',theme);
+  localStorage.setItem('aa_theme',theme);updateIcons();
+}
+function updateIcons(){const ic=theme==='dark'?'🌙':'☀️';document.getElementById('tt').textContent=ic;document.getElementById('ttm').textContent=ic;}
+function toggleMN(){document.getElementById('mn').classList.toggle('open');document.getElementById('hb').classList.toggle('active');}
+function closeMN(){document.getElementById('mn').classList.remove('open');document.getElementById('hb').classList.remove('active');}
+window.addEventListener('DOMContentLoaded',()=>{updateIcons();setLang(lang);});
+window.addEventListener('load',()=>{setTimeout(()=>{const l=document.getElementById('loader');l.classList.add('hide');setTimeout(()=>l.remove(),800);},1600);});
+const cur=document.getElementById('cursor'),ring=document.getElementById('cr');
+document.addEventListener('mousemove',e=>{cur.style.transform=`translate(${e.clientX-6}px,${e.clientY-6}px)`;ring.style.transform=`translate(${e.clientX-20}px,${e.clientY-20}px)`;});
+document.querySelectorAll('a,button,input,select').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='60px';ring.style.height='60px';});el.addEventListener('mouseleave',()=>{ring.style.width='40px';ring.style.height='40px';});});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
+const pe=document.getElementById('pts');
+for(let i=0;i<30;i++){const p=document.createElement('div');p.className='pt';p.style.cssText=`left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;`;pe.appendChild(p);}
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('show');}),{threshold:.1});
+document.querySelectorAll('.rv,.si,.aiw,.at,.cc,.mt,.tc,.gi,.rl,.rf').forEach(el=>ro.observe(el));
+function animCount(el,target){let c=0;const step=target/60;const t=setInterval(()=>{c+=step;if(c>=target){el.textContent=target+(target===95?'%':target===500?'+':'');clearInterval(t);}else el.textContent=Math.floor(c)+(target===95?'%':target===500?'+':'');},16);}
+const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){animCount(x.target.querySelector('.sn'),parseInt(x.target.querySelector('.sn').dataset.count));co.unobserve(x.target);}}),{threshold:.5});
+document.querySelectorAll('.si').forEach(s=>co.observe(s));
+function showToast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.style.background=type==='err'?'#e74c3c':'var(--gold)';t.style.color=type==='err'?'#fff':'#0a0f1e';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);}
+const BOT='8731128643:AAEvv8wHSFZwa39KdcpAQ-nbak9Jtn8nlcU',CID='8424842589';
+document.getElementById('regForm').addEventListener('submit',async function(e){
+  e.preventDefault();const d=T[lang];const btn=document.getElementById('sbtn');
+  btn.textContent=d.tsend;btn.disabled=true;
+  const name=document.getElementById('fn').value;
+  const surname=document.getElementById('fsn').value;
+  const age=document.getElementById('fa').value;
+  const level=document.getElementById('fl').value;
+  const phone=document.getElementById('fph').value;
+  const msg=`🎓 Yangi O'quvchi!\n\n👤 ${name} ${surname}\n🎂 ${age} yosh\n📚 ${level}\n📞 ${phone}\n📅 ${new Date().toLocaleString('uz-UZ')}`;
+  try{
+    const res=await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CID,text:msg})});
+    const data=await res.json();
+    if(data.ok){showToast(d.tok);this.reset();}else showToast(d.terr,'err');
+  }catch{showToast(d.tnet,'err');}
+  btn.textContent=d.fsub;btn.disabled=false;
+});
+</script>
+</body>
+</html>
