@@ -514,7 +514,7 @@ footer{padding:56px 5% 28px;border-top:1px solid var(--border);}
     <div class="htag" data-i="heroTag">Xonqa tumani №1 Restoran</div>
     <h1>Gun<em>Aydin</em></h1>
     <div class="hline"></div>
-    <p class="hsub" data-i="heroSub">Premium Xorazm Taomlari · Sifatli Xizmat · 2019 Yildan</p>
+    <p class="hsub" data-i="heroSub">Premium Xorazm Taomlari · Sifatli Xizmat · 2023 Yildan</p>
     <div class="hbtns">
       <a href="#menu" class="btn-main"><i class="fas fa-utensils"></i> <span data-i="seeMenu">Menyu ko'rish</span></a>
       <a href="#contact" class="btn-ghost"><i class="fas fa-map-marker-alt"></i> <span data-i="ourAddress">Manzilimiz</span></a>
@@ -1043,8 +1043,8 @@ async function sendTg(){
   if(!name){showToast(tr('enterName'));return;}
   if(!phone){showToast(tr('enterPhone'));return;}
   if(!cart.length){showToast(tr('emptyCartMsg'));return;}
-  const TOKEN="8710725514:AAFCslfp-BjDu177Fz-ATw4KtMrO-Ftm6xY";
-  const CHAT_ID="SIZNING_CHAT_ID";
+  const TOKEN="8799360604:AAEsAHAxI4FlYUItmERafpE7FxX0cSvrUmM";
+  const CHAT_ID="8424842589";
   const sum=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const now=new Date();
   let msg="🍽 <b>YANGI BUYURTMA — GunAydin</b>\n━━━━━━━━━━━━━━━━━━━━━━\n";
@@ -1069,3 +1069,4 @@ initStorage();
 </script>
 </body>
 </html>
+
